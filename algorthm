@@ -1,0 +1,43 @@
+/**
+ * This function is used to count vietnamese letter can be created
+ * 
+ * */
+fun algorithm(str: String): Int {
+    
+    // Check, if have space or special letter (no only contain letters)
+    if(!str.matches(Regex("[a-zA-z]+"))) {
+        return -1
+    }
+    
+    // List case convert to vietnamese letters
+    val telexKey = listOf("aw", "aa", "dd", "ee", "oo", "ow", "w")
+    
+    // Lowercase input string
+    val lowerStr = str.lowercase()
+
+    // Count number vietnamese leters
+    var count = 0
+    
+    var i = 0
+    while(i < lowerStr.length) {
+        // Check letter at index i
+        if(lowerStr[i].toString() in telexKey) {
+            count++
+            i++
+        } else {
+            // Check letter at index i and i+1
+            val tmp = "" + lowerStr[i] + lowerStr[i+1]
+            if(tmp in telexKey) {
+                count++
+                i += 2
+            } else {
+                i++
+            }
+        }
+    }
+    return count
+}
+
+fun main() {
+    println(algorithm("hfdawhwhcoomdd"))
+}
